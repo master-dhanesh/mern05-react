@@ -5,6 +5,10 @@ const index = () => {
     let [uname, setuname] = useState("John Doe");
     const [mydate, setMydate] = useState(new Date().toLocaleTimeString());
 
+    setInterval(() => {
+        setMydate(new Date().toLocaleTimeString());
+    }, 1000);
+
     // let uname = "John Doe";
 
     const changehandler = () => {
