@@ -5,6 +5,8 @@ const index = () => {
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
 
+    const [tasks, setTasks] = useState([]);
+
     const CreateTaskHandler = (e) => {
         e.preventDefault();
         const todo = {
@@ -12,10 +14,40 @@ const index = () => {
             title,
             desc,
         };
-        console.log(todo);
+        // console.log(todo);
+        // const copyTasks = [...tasks];
+        // copyTasks.push(todo);
+        // setTasks(copyTasks);
+        setTasks([...tasks, todo]);
+        setTitle("");
+        setDesc("");
     };
 
-    // const ChangeHandler = (e) => setTitle(e.target.value);
+    const DeleteHandler = (id) => {
+        const copyTasks = tasks.filter((task) => task.id !== id);
+        setTasks(copyTasks);
+    };
+
+    let taskslist = (
+        <h4 className="text-center fs-4 fw-light text-danger">
+            No pending tasks found
+        </h4>
+    );
+
+    if (tasks.length > 0) {
+        taskslist = tasks.map((task, index) => (
+            <li
+                key={task.id}
+                className="fs-4 d-flex justify-content-between list-group-item"
+            >
+                {task.title}
+                <i
+                    onClick={() => DeleteHandler(task.id)}
+                    className="text-danger ri-delete-bin-2-line"
+                ></i>
+            </li>
+        ));
+    }
 
     return (
         <div className="container mt-5 p-5 bg-light">
@@ -43,10 +75,7 @@ const index = () => {
 
             <ul className="list-group w-50">
                 <h3 className="mb-3 fs-3 fw-light">Pending tasks</h3>
-
-                <li className="fs-4 d-flex justify-content-between list-group-item">
-                    Item 1<i className="text-danger ri-delete-bin-2-line"></i>
-                </li>
+                {taskslist}
             </ul>
         </div>
     );
