@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { nanoid } from "nanoid";
+import css from "../styles/Create.module.css";
+
 const Create = (props) => {
     console.log(props);
     const { tasks, setTasks } = props;
-
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
 
@@ -14,18 +15,31 @@ const Create = (props) => {
             title,
             desc,
         };
-        // console.log(todo);
-        // const copyTasks = [...tasks];
-        // copyTasks.push(todo);
-        // setTasks(copyTasks);
         setTasks([...tasks, todo]);
         setTitle("");
         setDesc("");
     };
 
+    const style = {
+        fontWeight: "100",
+        color: "tomato",
+        textAlign: "center",
+    };
+
     return (
         <>
-            {props.children}
+            {/* inline css  */}
+            {/* <h1 style={{ fontWeight: "100", color: "tomato" }}>
+                {props.children}
+            </h1> */}
+
+            {/* internal css */}
+            {/* <h1 style={style}>{props.children}</h1> */}
+
+            {/* external css */}
+            <h1 className={`${css.createH1} bg-dark`}>{props.children}</h1>
+
+            {/* ---------------------------------------------- */}
             <h2 className="mb-5 fs-2 fw-light">Todo-App</h2>
 
             <form onSubmit={CreateTaskHandler}>
