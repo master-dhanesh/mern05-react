@@ -1,18 +1,25 @@
-import Create from "@/components/Create";
-import Show from "@/components/Show";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const index = () => {
-    const [tasks, setTasks] = useState([]);
+    const [images, setImages] = useState(null);
+    //https://picsum.photos/v2/list
+
+    const GetImages = async () => {
+        const strdata = await fetch("https://picsum.photos/v2/list");
+        const json = await strdata.json();
+        setImages(json);
+    };
+
+    // Lifecycle of component
+    useEffect(() => {
+        GetImages();
+    }, []);
 
     return (
-        <div className="container mt-5 p-5 bg-light">
-            <h1>TOOOOO DOOOOOO APPPPPP</h1>
-            <Create tasks={tasks} setTasks={setTasks}>
-                Bahut he jyaza secret information
-            </Create>
+        <div>
+            <button onClick={GetImages}>Get Images</button>
             <hr />
-            <Show tasks={tasks} setTasks={setTasks} />
+            {images ? JSON.stringify(images) : "Loading..."}
         </div>
     );
 };
