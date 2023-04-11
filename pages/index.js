@@ -1,7 +1,9 @@
+import Gallery from "@/components/Gallery";
 import React, { useEffect, useState } from "react";
 
 const index = () => {
     const [images, setImages] = useState(null);
+    const [isShow, setIsShow] = useState(false);
     //https://picsum.photos/v2/list
 
     const GetImages = async () => {
@@ -10,13 +12,13 @@ const index = () => {
         setImages(json);
     };
 
-    // Lifecycle of component
-    useEffect(() => {
-        GetImages();
-    }, []);
-
     return (
         <div>
+            <button onClick={() => setIsShow(!isShow)}>
+                {isShow ? "Hide" : "Show"}
+            </button>
+            {isShow && <Gallery />}
+            <hr />
             <button onClick={GetImages}>Get Images</button>
             <hr />
             {images ? JSON.stringify(images) : "Loading..."}
