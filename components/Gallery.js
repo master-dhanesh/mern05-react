@@ -1,30 +1,39 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Gallery = () => {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+    const [pagecount, setPagecount] = useState(1);
+    const [images, setImages] = useState(null);
 
-    // Create Lifecycle -> first load view(HTML) then call useEffect
+    const GetImages = async () => {
+        const strdata = await fetch(
+            `https://picsum.photos/v2/list?page=${pagecount}&limit=10`
+        );
+        const json = await strdata.json();
+        setImages(json);
+    };
+
     useEffect(() => {
-        // creation
-        console.log("Gallery Component Created");
-
-        // desctuction
-        return () => {
-            // alert("Do you want to leave this site?");
-            console.log("Gallery Component Destroyed");
-        };
-    }, [password]);
+        GetImages();
+    }, [pagecount]);
 
     return (
         <div>
-            <h1>Username : {username}</h1>
-            <button onClick={() => setUsername("John")}>Get Username</button>
-            <hr />
-            <h1>Password : {password}</h1>
-            <button onClick={() => setPassword("john@doe")}>
-                Get Password
-            </button>
+            <div className="d-flex flex-wrap">
+                {images
+                    ? images.map((image) => (
+                          <div key={image.id}>
+                              <img
+                                  src={image.download_url}
+                                  height="100"
+                                  alt=""
+                              />
+                              <p>{image.author}</p>
+                          </div>
+                      ))
+                    : "Loading..."}
+            </div>
+            <button onClick={() => setPagecount(pagecount - 1)}>Prev</button>
+            <button onClick={() => setPagecount(pagecount + 1)}>Next</button>
         </div>
     );
 };
