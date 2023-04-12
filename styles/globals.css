@@ -1,0 +1,24 @@
+ul[role="navigation"] {
+    display: flex;
+    list-style: none;
+    justify-content: center;
+    margin-top: 3vmax;
+}
+
+ul[role="navigation"] > li {
+    margin: 0 1vmax;
+}
+
+.selected {
+    color: tomato;
+    transform: scale(1.1);
+}
+
+.disabled > a {
+    display: none;
+}
+
+ul[role="navigation"] > li > a {
+    text-decoration: none;
+    color: black;
+}

@@ -1,4 +1,6 @@
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
+import ReactPaginate from "react-paginate";
 
 const Gallery = () => {
     const [pagecount, setPagecount] = useState(1);
@@ -16,6 +18,10 @@ const Gallery = () => {
         GetImages();
     }, [pagecount]);
 
+    const handlePageClick = (x) => {
+        setPagecount(x.selected + 1);
+    };
+
     return (
         <div>
             <div className="d-flex flex-wrap">
@@ -27,13 +33,23 @@ const Gallery = () => {
                                   height="100"
                                   alt=""
                               />
-                              <p>{image.author}</p>
+                              <Link href={`/card/${image.id}`}>
+                                  {image.author}
+                              </Link>
                           </div>
                       ))
                     : "Loading..."}
             </div>
-            <button onClick={() => setPagecount(pagecount - 1)}>Prev</button>
-            <button onClick={() => setPagecount(pagecount + 1)}>Next</button>
+            {/*  */}
+
+            <ReactPaginate
+                nextLabel=">>"
+                onPageChange={handlePageClick}
+                pageCount={10}
+                previousLabel="<<"
+                renderOnZeroPageCount={null}
+            />
+            {/*  */}
         </div>
     );
 };
