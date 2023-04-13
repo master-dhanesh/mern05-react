@@ -1,13 +1,18 @@
 import { createContext, useState } from "react";
 
-export const ImageContext = createContext(null);
+export const DetsContext = createContext(null);
 
 const Context = (props) => {
-    const [Images, setImages] = useState([]);
+    const [dets, setDets] = useState({
+        name: "John",
+        email: "john@doe.com",
+        contact: 1234567890,
+    });
+
     return (
-        <ImageContext.Provider value={[Images, setImages]}>
+        <DetsContext.Provider value={[dets, setDets]}>
             {props.children}
-        </ImageContext.Provider>
+        </DetsContext.Provider>
     );
 };
 
