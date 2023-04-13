@@ -5,8 +5,11 @@ const index = () => {
     const [isShow, setIsShow] = useState(true);
 
     return (
-        <div>
-            <button onClick={() => setIsShow(!isShow)}>
+        <div className="container mt-5 p-5 bg-light">
+            <button
+                className="btn btn-dark mb-3"
+                onClick={() => setIsShow(!isShow)}
+            >
                 {isShow ? "Hide" : "Show"}
             </button>
             {isShow && <Gallery />}

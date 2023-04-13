@@ -1,10 +1,11 @@
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
+import { ImageContext } from "../context/Context";
 
 const Gallery = () => {
     const [pagecount, setPagecount] = useState(1);
-    const [images, setImages] = useState(null);
+    const [images, setImages] = useContext(ImageContext);
 
     const GetImages = async () => {
         const strdata = await fetch(
@@ -24,22 +25,25 @@ const Gallery = () => {
 
     return (
         <div>
-            <div className="d-flex flex-wrap">
+            <ul className="list-group">
                 {images
                     ? images.map((image) => (
-                          <div key={image.id}>
+                          <li className="list-group-item" key={image.id}>
                               <img
                                   src={image.download_url}
                                   height="100"
                                   alt=""
                               />
-                              <Link href={`/card/${image.id}`}>
+                              <Link
+                                  className="text-decoration-none ms-3"
+                                  href={`/card/${image.id}`}
+                              >
                                   {image.author}
                               </Link>
-                          </div>
+                          </li>
                       ))
                     : "Loading..."}
-            </div>
+            </ul>
             {/*  */}
 
             <ReactPaginate
