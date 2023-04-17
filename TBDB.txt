@@ -1,0 +1,14 @@
+0. nav will include 2 major links 1. Movies and 2. popular TV Shows
+1. show all the popular movies in homepage
+2. open details page of particular movie whne user click on it
+3. User can see all the detail and play the trailer if there is
+
+FINF API KEY
+https://www.themoviedb.org/settings/api
+
+API LINKS TO USE
+https://developers.themoviedb.org/3/movies/get-movie-details
+
+image paths
+https://image.tmdb.org/t/p/w500/rr7E0NoGKxvbkb89eR1GwfoYjpA.jpg
+
