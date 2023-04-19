@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { decrement, increment } from "../store/reducers/counterSlice";
-import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import { useDispatch, useSelector } from "react-redux";
+import { increment, decrement, chnagevalue } from "../store/actions";
 
 const index = () => {
+    const [movies, setMovies] = useState([]);
     const dispatch = useDispatch();
     const { value } = useSelector((state) => state.counterReducer);
-    const [movies, setMovies] = useState([]);
 
     const GetLatestMovies = async () => {
         const { data } = await axios.get(
@@ -22,19 +22,12 @@ const index = () => {
 
     return (
         <div className="container mt-5 p-5 bg-light">
-            <h1 className="index-heading">Lorem ipsum dolor sit amet.</h1>
-            <button
-                onClick={() => dispatch(increment())}
-                className="btn btn-dark px-5"
-            >
-                +
-            </button>
-            <span className="fs-1 px-3">{value}</span>
-            <button
-                onClick={() => dispatch(decrement())}
-                className="btn btn-dark px-5"
-            >
-                -
+            <button onClick={() => dispatch(increment())}>+</button>
+            <span className="fs-1">{value}</span>
+            <button onClick={() => dispatch(decrement())}>-</button>
+            &nbsp; &nbsp;
+            <button onClick={() => dispatch(chnagevalue(5))}>
+                Change By 5
             </button>
             <br /> <br />
             <img src="/model1.jpg" height={200} alt="" />

@@ -1,21 +1,24 @@
 import { createSlice } from "@reduxjs/toolkit";
+import {
+    changeByParamsAction,
+    decrementAction,
+    incrementAction,
+} from "../actions/counterActions";
 
 const initialState = {
     value: 0,
+    movies: null,
 };
 
-export const counterSlice = createSlice({
+export const CounterSlice = createSlice({
     name: "counter",
     initialState,
     reducers: {
-        increment: (state, action) => {
-            state.value += 1;
-        },
-        decrement: (state, action) => {
-            state.value -= 1;
-        },
+        increment: incrementAction,
+        decrement: decrementAction,
+        chnagevalue: changeByParamsAction,
     },
 });
 
-export const { decrement, increment } = counterSlice.actions;
-export default counterSlice.reducer;
+export const { decrement, increment, chnagevalue } = CounterSlice.actions;
+export default CounterSlice.reducer;
