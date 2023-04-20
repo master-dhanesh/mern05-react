@@ -1,34 +1,17 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { increment, decrement, chnagevalue } from "../store/actions";
+import { getMoviesAsyncAction } from "../store/actions/movieActions";
 
 const index = () => {
-    const [movies, setMovies] = useState([]);
     const dispatch = useDispatch();
-    const { value } = useSelector((state) => state.counterReducer);
-
-    const GetLatestMovies = async () => {
-        const { data } = await axios.get(
-            `https://api.themoviedb.org/3/movie/popular?api_key=223667d1239871fc4b6eeef8d0d6def8&language=en-US&page=1`
-        );
-        setMovies(data.results);
-        console.log(data);
-    };
+    const { movies } = useSelector((state) => state.movieReducer);
 
     useEffect(() => {
-        GetLatestMovies();
+        dispatch(getMoviesAsyncAction());
     }, []);
 
     return (
         <div className="container mt-5 p-5 bg-light">
-            <button onClick={() => dispatch(increment())}>+</button>
-            <span className="fs-1">{value}</span>
-            <button onClick={() => dispatch(decrement())}>-</button>
-            &nbsp; &nbsp;
-            <button onClick={() => dispatch(chnagevalue(5))}>
-                Change By 5
-            </button>
             <br /> <br />
             <img src="/model1.jpg" height={200} alt="" />
             <br /> <br />
