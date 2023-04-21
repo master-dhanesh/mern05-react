@@ -10,12 +10,7 @@ const index = (props) => {
                     props.data.map((i) => (
                         <li key={i.id} className="list-group-item">
                             <Link href={`/image-detail/${i.id}`}>
-                                <img
-                                    key={i.id}
-                                    height={150}
-                                    alt={i.author}
-                                    src={i.download_url}
-                                />
+                                <h1>{i.name}</h1>
                             </Link>
                         </li>
                     ))}
@@ -24,9 +19,9 @@ const index = (props) => {
     );
 };
 
-export async function getServerSideProps(context) {
+export async function getStaticProps(context) {
     const { data } = await axios.get(
-        `https://picsum.photos/v2/list?page=2&limit=10`
+        `https://jsonplaceholder.typicode.com/users`
     );
     return {
         props: { data }, // will be passed to the page component as props
