@@ -1,30 +1,36 @@
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { getMoviesAsyncAction } from "../store/actions/movieActions";
+import React from "react";
+import axios from "axios";
+import Link from "next/link";
 
-const index = () => {
-    const dispatch = useDispatch();
-    const { movies } = useSelector((state) => state.movieReducer);
-
-    useEffect(() => {
-        dispatch(getMoviesAsyncAction());
-    }, []);
-
+const index = (props) => {
     return (
         <div className="container mt-5 p-5 bg-light">
-            <br /> <br />
-            <img src="/model1.jpg" height={200} alt="" />
-            <br /> <br />
-            {movies &&
-                movies.map((m) => (
-                    <img
-                        key={m.id}
-                        height={200}
-                        src={`https://image.tmdb.org/t/p/w500/${m.poster_path}`}
-                    />
-                ))}
+            <ul className="list-group">
+                {props.data &&
+                    props.data.map((i) => (
+                        <li key={i.id} className="list-group-item">
+                            <Link href={`/image-detail/${i.id}`}>
+                                <img
+                                    key={i.id}
+                                    height={150}
+                                    alt={i.author}
+                                    src={i.download_url}
+                                />
+                            </Link>
+                        </li>
+                    ))}
+            </ul>
         </div>
     );
 };
+
+export async function getServerSideProps(context) {
+    const { data } = await axios.get(
+        `https://picsum.photos/v2/list?page=2&limit=10`
+    );
+    return {
+        props: { data }, // will be passed to the page component as props
+    };
+}
 
 export default index;
