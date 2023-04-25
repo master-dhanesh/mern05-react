@@ -1,11 +1,14 @@
-import React from "react";
-import { motion } from "framer-motion";
+import Head from "next/head";
+import Link from "next/link";
 const index = () => {
     return (
         <div className="container mt-5 p-5 bg-light">
-            <motion.div whileHover={{ scale: 1.2, x: 100 }}>
-                Hello World
-            </motion.div>
+            <Head>
+                <title>Homepage</title>
+            </Head>
+            <h1>This is HomePage</h1>
+            <p>index.js</p>
+            <Link href="/show">Show</Link>
         </div>
     );
 };
